@@ -28,6 +28,13 @@ app.use(cors({
 app.use(express.json());
 app.use(cookieParser());
 
+app.get('/api/health', (req, res) => {
+    res.status(200).json({
+        status: 'ok',
+        message: 'DevTinder backend is running'
+    });
+});
+
 const chatRouter = require('./routers/chat');
 const authRouter = require('./routers/auth');
 const profileAuth = require('./routers/profile');
