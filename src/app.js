@@ -15,11 +15,16 @@ const http = require("http");
 const server = http.createServer(app);
 createServer(server);
 require("./utils/cronjob");
+// app.use(cors({ this was for local
+//   origin:"http://localhost:5173",
+//   credentials:true
+// }
+// ));
+// this is for production
 app.use(cors({
-  origin:"http://localhost:5173",
-  credentials:true
-}
-));
+  origin: process.env.FRONTEND_URL,
+  credentials: true
+}));
 app.use(express.json());
 app.use(cookieParser());
 
@@ -155,9 +160,14 @@ app.use('/api',chatRouter);
 connectDB()
   .then(() => {
     //console.log("Database Connection has been established");
-    server.listen(process.env.PORT, () => {
+    // server.listen(process.env.PORT, () => { this 
       //console.log("App is listining to the port 3000");
-    });
+    // });
+
+    //this is for production
+    server.listen(process.env.PORT, '0.0.0.0', () => {
+    console.log(`Server running on port ${process.env.PORT}`);
+});
   })
   .catch((err) => {
     //console.log("Error while connecting to the database", err.message);

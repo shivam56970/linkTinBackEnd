@@ -2,12 +2,22 @@ const socket = require("socket.io");
 const cors = require("cors");
 const { Chat } = require("../models/chat");
 const createServer = (server) => {
+  // const io = socket(server, {  this is for local
+  //   cors: {
+  //     origin: "http://localhost:5173",
+  //     methods: ["GET", "POST"],
+  //   },
+  // });
+//this is for production
   const io = socket(server, {
+    path: "/api/socket.io",
+
     cors: {
-      origin: "http://localhost:5173",
-      methods: ["GET", "POST"],
+        origin: process.env.FRONTEND_URL,
+        methods: ["GET", "POST"],
+        credentials: true,
     },
-  });
+});
   io.on("connection", (socket) => {
     socket.on("joinChat", ({ userId, targetId, firstName }) => {
       // console.log(' From backend The user id is:'+ userId + "and the userid is" + targetId);
