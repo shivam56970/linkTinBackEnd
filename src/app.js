@@ -15,7 +15,7 @@ const http = require("http");
 const server = http.createServer(app);
 createServer(server);
 require("./utils/cronjob");
-// app.use(cors({ this was for local
+// app.use(cors({ 
 //   origin:"http://localhost:5173",
 //   credentials:true
 // }

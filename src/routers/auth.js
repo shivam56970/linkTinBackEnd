@@ -45,14 +45,14 @@ authRouter.post("/login", async (req, res) => {
     const isPasswordValid = await user.validatePassword(password);
     if (isPasswordValid) {
       const token = await user.getJWT();
-      // res.cookie("shivam", token);
-      // res.send(user);
+      res.cookie("shivam", token);
+      res.send(user);
 
 
             // Remove password before sending response
-            const { password: _, ...userWithoutPassword } = user.toObject();
+            // const { password: _, ...userWithoutPassword } = user.toObject();
 
-            res.send(userWithoutPassword);
+            // res.send(userWithoutPassword);
     }
     else {
       res.status(400).send("Invalid credentials");
